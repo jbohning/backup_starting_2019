@@ -246,3 +246,43 @@ distance_in_miles<-function(lat1, lon1, lat2, lon2) {
     a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
     12742 * asin(sqrt(a)) * 0.621371
 }
+
+
+
+#################################################################
+
+#RANDOMLY SAMPLE SPARKLYR DATA
+
+#################################################################
+n_obs <- sdf_nrow(data_import_1718)
+num_to_sample <- 10000
+
+if(n_obs > num_to_sample) {
+    frac_pct <- (num_to_sample/n_obs)
+    testing_data_1718 <- data_import_1718 %>% 
+        sdf_sample(fraction = frac_pct, replace = FALSE, seed = 1041) %>% 
+        collect()
+} else {
+    testing_data_1718 <- data_import_1718 %>% 
+        collect()
+}
+
+
+#################################################################
+
+#CREATE FOLDER IF IT DOESN'T ALREADY EXIST
+
+#################################################################
+if(!dir.exists(paste(getwd(), "Output", "Profile", sep = "/"))) {dir.create(paste(getwd(), "Output", "Profile",sep = "/"))}
+
+
+
+
+
+
+
+
+
+
+
+
